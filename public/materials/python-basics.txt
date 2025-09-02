@@ -1,0 +1,9 @@
+Python Basics (Offline Material)
+
+Contents:
+- What is Python
+- Running your first script
+- print(), variables, and basic types
+
+This is a placeholder offline material file. Replace with your actual PDF or content.
+
