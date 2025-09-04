@@ -62,20 +62,13 @@ export default function LearningPage() {
     };
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-      if (!baseUrl) {
-        throw new Error(
-          "API base URL not configured. Set NEXT_PUBLIC_API_BASE_URL."
-        );
-      }
-      const res = await fetch(
-        `${baseUrl.replace(/\/$/, "")}/api/lessons/plan`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      // Use the local Next.js API route as the endpoint
+      const res = await fetch("/api/lesson/plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setResult(data);
