@@ -11,6 +11,28 @@ type LessonPlanRequest = {
   language?: string;
 };
 
+type Activity = {
+  title: string;
+  description: string;
+  duration_minutes: number;
+  materials?: string[];
+};
+
+type Assessment = {
+  description?: string;
+  criteria?: string[];
+};
+
+type LessonPlanResponse = {
+  subject: string;
+  grade_level: string;
+  duration_minutes: number;
+  learning_objectives: string[];
+  outline?: string[];
+  activities?: Activity[];
+  assessment?: Assessment;
+};
+
 export default function LearningPage() {
   const [subject, setSubject] = useState("Python Programming");
   const [gradeLevel, setGradeLevel] = useState("Beginner");
@@ -19,7 +41,7 @@ export default function LearningPage() {
     "Understand variables and data types; Write simple expressions; Use input and print"
   );
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<LessonPlanResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -40,16 +62,27 @@ export default function LearningPage() {
     };
 
     try {
-      const res = await fetch("http://localhost:8000/api/lessons/plan", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+      if (!baseUrl) {
+        throw new Error(
+          "API base URL not configured. Set NEXT_PUBLIC_API_BASE_URL."
+        );
+      }
+      const res = await fetch(
+        `${baseUrl.replace(/\/$/, "")}/api/lessons/plan`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setResult(data);
-    } catch (err: any) {
-      setError(err?.message || "Failed to generate lesson plan");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to generate lesson plan";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -57,9 +90,16 @@ export default function LearningPage() {
 
   return (
     <div className="container mx-auto px-4 py-10 text-gray-900">
-      <h1 className="text-3xl font-extrabold mb-6 text-gray-900">
-        Learning - Python Lesson Planner
-      </h1>
+      <div className="page-hero mb-8 p-6 md:p-10">
+        <span className="badge badge-success">Learning</span>
+        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+          Python Lesson Planner
+        </h1>
+        <p className="text-gray-700 mt-1 max-w-2xl">
+          Generate structured lesson plans tailored to your class needs and
+          time.
+        </p>
+      </div>
 
       <form
         onSubmit={handleSubmit}
@@ -161,7 +201,7 @@ export default function LearningPage() {
               Activities
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              {result.activities?.map((a: any, i: number) => (
+              {result.activities?.map((a: Activity, i: number) => (
                 <div key={i} className="border border-gray-200 rounded-xl p-4">
                   <div className="font-semibold text-gray-900">{a.title}</div>
                   <div className="text-sm text-gray-800">{a.description}</div>

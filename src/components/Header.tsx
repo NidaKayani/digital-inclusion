@@ -52,16 +52,16 @@ export default function Header() {
           </a>
         </div>
         <a
-          href="#"
+          href="/inspiration"
           className="nav-link px-4 py-2 font-medium text-gray-700 rounded-full hover:bg-blue-50 transition-colors"
         >
           Inspiration
         </a>
         <a
-          href="#"
+          href="/donation"
           className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:bg-blue-700 transition-colors"
         >
-          MEMBERSHIP
+          DONATION
         </a>
       </nav>
     </header>

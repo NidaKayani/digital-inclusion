@@ -10,6 +10,15 @@ type AssessmentRequest = {
   style: string;
 };
 
+type AssessmentItem = {
+  question: string;
+  options?: string[];
+};
+
+type AssessmentResponse = {
+  items?: AssessmentItem[];
+};
+
 export default function AssessmentPage() {
   const [topic, setTopic] = useState("Python Basics");
   const [gradeLevel, setGradeLevel] = useState("Beginner");
@@ -17,7 +26,7 @@ export default function AssessmentPage() {
   const [difficulty, setDifficulty] = useState("mixed");
   const [style, setStyle] = useState("formative");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<AssessmentResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -35,8 +44,14 @@ export default function AssessmentPage() {
     };
 
     try {
+      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+      if (!baseUrl) {
+        throw new Error(
+          "API base URL not configured. Set NEXT_PUBLIC_API_BASE_URL."
+        );
+      }
       const res = await fetch(
-        "http://localhost:8000/api/assessments/generate",
+        `${baseUrl.replace(/\/$/, "")}/api/assessments/generate`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -46,8 +61,10 @@ export default function AssessmentPage() {
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setResult(data);
-    } catch (err: any) {
-      setError(err?.message || "Failed to generate assessment");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to generate assessment";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -143,7 +160,7 @@ export default function AssessmentPage() {
         <div className="mt-8 bg-white p-6 rounded-2xl shadow">
           <h2 className="text-2xl font-extrabold mb-4 text-gray-900">Items</h2>
           <ol className="list-decimal ml-6 space-y-3 text-gray-900">
-            {result.items?.map((q: any, i: number) => (
+            {result.items?.map((q: AssessmentItem, i: number) => (
               <li key={i}>
                 <div className="font-medium text-gray-900">{q.question}</div>
                 {q.options?.length ? (

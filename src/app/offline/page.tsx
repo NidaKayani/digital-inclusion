@@ -21,9 +21,16 @@ export default function OfflinePage() {
 
   return (
     <div className="container mx-auto px-4 py-10 text-gray-900">
-      <h1 className="text-3xl font-extrabold mb-6 text-gray-900">
-        Offline Support
-      </h1>
+      <div className="page-hero mb-8 p-6 md:p-10">
+        <span className="badge badge-warning">Offline</span>
+        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+          Offline Support
+        </h1>
+        <p className="text-gray-700 mt-1 max-w-2xl">
+          Check service worker status and cache key materials for
+          low-connectivity use.
+        </p>
+      </div>
       <div className="bg-white p-6 rounded-2xl shadow space-y-3">
         <div className="text-gray-900">
           <span className="font-semibold">Service Worker:</span> {status}
@@ -41,6 +48,7 @@ export default function OfflinePage() {
       <div className="mt-8 bg-white p-6 rounded-2xl shadow">
         <h2 className="text-2xl font-extrabold text-gray-900 mb-4">
           Offline Materials
+          <span className="ml-3 badge badge-success">PWA Ready</span>
         </h2>
         <ul className="list-disc ml-6 space-y-2 text-gray-900">
           <li className="flex items-center justify-between">
