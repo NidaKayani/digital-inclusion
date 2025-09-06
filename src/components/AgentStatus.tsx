@@ -11,6 +11,7 @@ const learningPlan = [
 ];
 
 export default function AgentStatus() {
+  const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [status, setStatus] = useState("Agent: On track with your plan!");
   
@@ -18,6 +19,12 @@ export default function AgentStatus() {
   usePWA();
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
     const interval = setInterval(() => {
       setCurrentStep(prev => {
         const nextStep = prev + 1;
@@ -33,7 +40,11 @@ export default function AgentStatus() {
     }, 10000); // Update every 10 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform">

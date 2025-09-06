@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BackButton from "@/components/BackButton";
 
 type AssessmentRequest = {
   topic: string;
@@ -72,9 +73,15 @@ export default function AssessmentPage() {
 
   return (
     <div className="container mx-auto px-4 py-10 text-gray-900">
-      <h1 className="text-3xl font-extrabold mb-6 text-gray-900">
-        Assessment - Python
-      </h1>
+      <div className="page-hero mb-8 p-6 md:p-10">
+        <div className="flex items-start justify-between mb-6">
+          <BackButton className="mt-1" />
+        </div>
+        <span className="badge">Assessment</span>
+        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+          Assessment - Python
+        </h1>
+      </div>
 
       <form
         onSubmit={handleSubmit}

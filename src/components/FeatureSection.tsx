@@ -1,4 +1,4 @@
-import { DownloadIcon, LayersIcon, TrendingUpIcon } from './icons';
+import { DownloadIcon, LayersIcon, TrendingUpIcon } from "./icons";
 
 interface FeatureSectionProps {
   title: string;
@@ -9,36 +9,39 @@ interface FeatureSectionProps {
   iconBgColor?: string;
 }
 
-export default function FeatureSection({ 
-  title, 
-  description, 
-  icon, 
-  reverse = false, 
+export default function FeatureSection({
+  title,
+  description,
+  icon,
+  reverse = false,
   bgColor = "bg-white",
-  iconBgColor = "bg-blue-100"
+  iconBgColor = "bg-blue-100",
 }: FeatureSectionProps) {
-  const containerClass = reverse 
-    ? "md:flex md:flex-row-reverse md:items-center md:space-x-12"
-    : "md:flex md:items-center md:space-x-12";
+  const containerClass = reverse
+    ? "md:flex md:flex-row-reverse md:items-center md:space-x-16"
+    : "md:flex md:items-center md:space-x-16";
 
-  const sectionClass = bgColor === "bg-gray-100" 
-    ? "container mx-auto px-4 py-24 bg-gray-100 rounded-[60px] my-12 shadow-inner"
-    : "container mx-auto px-4 py-24";
+  const sectionClass =
+    bgColor === "bg-gray-100"
+      ? "container mx-auto px-4 py-24 bg-gray-100 rounded-[60px] my-12 shadow-inner"
+      : "container mx-auto px-4 py-24";
 
   return (
     <section className={sectionClass}>
       <div className={containerClass}>
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 md:pr-8">
           <h2 className="text-3xl font-bold text-gray-900 leading-tight">
             {title}
           </h2>
-          <p className="mt-4 text-gray-600 leading-relaxed">
+          <p className="mt-6 text-gray-600 leading-relaxed text-lg">
             {description}
           </p>
         </div>
-        <div className="md:w-1/2 mt-8 md:mt-0 relative section-card">
+        <div className="md:w-1/2 mt-12 md:mt-0 relative section-card">
           <div className="bg-white p-6 rounded-3xl border border-gray-200">
-            <div className={`flex items-center justify-center p-8 ${iconBgColor} rounded-2xl`}>
+            <div
+              className={`flex items-center justify-center p-8 ${iconBgColor} rounded-2xl`}
+            >
               {icon}
             </div>
           </div>

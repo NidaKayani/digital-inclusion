@@ -27,25 +27,25 @@ export default function Header() {
             Offline
           </a>
           <a
-            href="/assessment"
+            href="/progress"
             className="nav-link px-4 py-2 font-medium text-gray-700 rounded-full hover:bg-blue-50 transition-colors"
           >
             Progress
           </a>
           <a
-            href="#"
+            href="/assessment"
             className="nav-link px-4 py-2 font-medium text-gray-700 rounded-full hover:bg-blue-50 transition-colors"
           >
             Assessment
           </a>
           <a
-            href="#"
+            href="/analytics"
             className="nav-link px-4 py-2 font-medium text-gray-700 rounded-full hover:bg-blue-50 transition-colors"
           >
             Analytics
           </a>
           <a
-            href="#"
+            href="/takeoff"
             className="nav-link px-4 py-2 font-medium text-gray-700 rounded-full hover:bg-blue-50 transition-colors"
           >
             Takeoff

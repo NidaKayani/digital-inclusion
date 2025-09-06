@@ -11,4 +11,3 @@ export { default as MissionSection } from "./MissionSection";
 export { default as TeamSection } from "./TeamSection";
 export { default as Footer } from "./Footer";
 export { default as AgentStatus } from "./AgentStatus";
-export { default as OfferSection } from "./offer/OfferSection";

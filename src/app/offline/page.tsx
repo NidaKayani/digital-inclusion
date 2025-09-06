@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import BackButton from "@/components/BackButton";
 
 export default function OfflinePage() {
+  const [mounted, setMounted] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [status, setStatus] = useState("Checking service worker...");
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       setIsSupported(true);
       navigator.serviceWorker.getRegistration().then((reg) => {
@@ -17,23 +25,26 @@ export default function OfflinePage() {
       setIsSupported(false);
       setStatus("Service workers are not supported in this browser.");
     }
-  }, []);
+  }, [mounted]);
 
   return (
     <div className="container mx-auto px-4 py-10 text-gray-900">
       <div className="page-hero mb-8 p-6 md:p-10">
+        <div className="flex items-start justify-between mb-6">
+          <BackButton className="mt-1" />
+        </div>
         <span className="badge badge-warning">Offline</span>
         <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
           Offline Support
         </h1>
         <p className="text-gray-700 mt-1 max-w-2xl">
-          Check service worker status and cache key materials for
-          low-connectivity use.
+          Check service worker status and cache key materials for low-connectivity use.
         </p>
       </div>
+
       <div className="bg-white p-6 rounded-2xl shadow space-y-3">
         <div className="text-gray-900">
-          <span className="font-semibold">Service Worker:</span> {status}
+          <span className="font-semibold">Service Worker:</span> {mounted ? status : "Loading..."}
         </div>
         <div className="text-gray-900">
           <span className="font-semibold">Guide:</span> This app caches assets
