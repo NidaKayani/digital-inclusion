@@ -68,10 +68,11 @@ export function DeviceAgnosticFeature() {
     <FeatureSection
       title="Works seamlessly on affordable devices."
       description="The app is built to be lightweight and efficient, minimizing resource usage. It intelligently adapts to screen sizes and processing power, providing a smooth and responsive experience on cheap smartphones and tablets, without the need for expensive hardware."
-      icon={<LayersIcon className="text-purple-500" size={100} />}
-      reverse={true}
-      bgColor="bg-gray-100"
+      icon={<LayersIcon className="text-purple-500 m-2 " size={100} />}
+      // reverse={true}
+      // bgColor="bg-gray-100"
       iconBgColor="bg-purple-100"
+      
     />
   );
 }

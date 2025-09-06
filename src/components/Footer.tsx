@@ -17,13 +17,13 @@ export default function Footer() {
         </div>
         <div>
           <h3 className="font-bold text-xl text-white mb-4">Contact</h3>
-          <p>123 Education Drive</p>
-          <p>Digital City, DC 12345</p>
+          <p> Education Drive</p>
+          <p>Digital inclusion </p>
           <p className="mt-4">Email: contact@digi-incl.com</p>
         </div>
       </div>
       <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
-        &copy; 2024 Digital Inclusion. All rights reserved.
+        &copy; 2025 Digital Inclusion. All rights reserved.
       </div>
     </footer>
   );

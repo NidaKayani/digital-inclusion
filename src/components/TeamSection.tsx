@@ -24,7 +24,7 @@ const teamMembers: TeamMember[] = [
     roleColor: "text-purple-600",
   },
   {
-    name: "Aimnah Ali",
+    name: "Aminah Ali",
     role: "UI Analytics",
     description:
       "Amna analyzes UI usage and behavior to optimize usability, accessibility, and engagement.",
