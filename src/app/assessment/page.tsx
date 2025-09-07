@@ -100,7 +100,7 @@ export default function AssessmentPage() {
   };
 
   const generateQuestions = (payload: AssessmentRequest): AssessmentItem[] => {
-    const questionTemplates = {
+    const questionTemplates: Record<string, Record<string, AssessmentItem[]>> = {
       Python: {
         "Variables & Data Types": [
           {
@@ -137,11 +137,11 @@ export default function AssessmentPage() {
       }
     };
 
-    const subjectQuestions = questionTemplates[payload.subject as keyof typeof questionTemplates];
-    const topicQuestions = subjectQuestions?.[payload.topic as keyof typeof subjectQuestions] || [];
+    const subjectQuestions = questionTemplates[payload.subject];
+    const topicQuestions: AssessmentItem[] = subjectQuestions?.[payload.topic] || [];
     
     // Repeat questions if needed to reach the requested number
-    const questions = [];
+    const questions: AssessmentItem[] = [];
     for (let i = 0; i < payload.num_items; i++) {
       const questionIndex = i % topicQuestions.length;
       if (topicQuestions[questionIndex]) {
