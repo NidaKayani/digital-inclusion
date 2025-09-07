@@ -174,37 +174,37 @@ export default function AssessmentPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-10 text-gray-900">
-      <div className="page-hero mb-8 p-6 md:p-10">
-        <div className="flex items-start justify-between mb-6">
+    <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-10 text-gray-900">
+      <div className="page-hero mb-6 sm:mb-8 p-4 sm:p-6 md:p-10">
+        <div className="flex items-start justify-between mb-4 sm:mb-6">
           <BackButton className="mt-1" />
         </div>
-        <span className="badge badge-success">Assessment</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+        <span className="badge badge-success text-xs sm:text-sm">Assessment</span>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
           AI-Powered Assessment
         </h1>
-        <p className="text-gray-700 mt-1 max-w-2xl">
+        <p className="text-sm sm:text-base text-gray-700 mt-1 max-w-2xl">
           Generate personalized assessments and test your knowledge with interactive quizzes.
         </p>
       </div>
 
       {!result ? (
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
           {/* Assessment Configuration */}
-          <div className="bg-white p-6 rounded-2xl shadow">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Configure Your Assessment</h2>
+          <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Configure Your Assessment</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Subject Selection */}
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-3">Subject</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
                   {subjects.map((subject) => (
                     <button
                       key={subject}
                       type="button"
                       onClick={() => handleSubjectChange(subject)}
-                      className={`p-3 rounded-xl border-2 transition-all duration-200 text-center ${
+                      className={`p-2 sm:p-3 rounded-xl border-2 transition-all duration-200 text-center text-sm sm:text-base ${
                         selectedSubject === subject
                           ? 'border-blue-500 bg-blue-50 text-blue-700'
                           : 'border-gray-200 hover:border-gray-300'
@@ -219,13 +219,13 @@ export default function AssessmentPage() {
               {/* Level Selection */}
               <div>
                 <label className="block text-sm font-semibold text-gray-900 mb-3">Level</label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                   {levels.map((level) => (
                     <button
                       key={level}
                       type="button"
                       onClick={() => setSelectedLevel(level)}
-                      className={`p-3 rounded-xl border-2 transition-all duration-200 text-center ${
+                      className={`p-2 sm:p-3 rounded-xl border-2 transition-all duration-200 text-center text-sm sm:text-base ${
                         selectedLevel === level
                           ? 'border-green-500 bg-green-50 text-green-700'
                           : 'border-gray-200 hover:border-gray-300'
@@ -254,12 +254,12 @@ export default function AssessmentPage() {
               </div>
 
               {/* Assessment Settings */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Number of Questions</label>
                   <input
                     type="number"
-                    className="w-full rounded-lg border border-gray-300 p-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-lg border border-gray-300 p-2 sm:p-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                     value={numItems}
                     min={3}
                     max={20}
@@ -269,7 +269,7 @@ export default function AssessmentPage() {
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Difficulty</label>
                   <select
-                    className="w-full rounded-lg border border-gray-300 p-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-lg border border-gray-300 p-2 sm:p-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                     value={difficulty}
                     onChange={(e) => setDifficulty(e.target.value)}
                   >
@@ -278,10 +278,10 @@ export default function AssessmentPage() {
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className="sm:col-span-2 md:col-span-1">
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Assessment Style</label>
                   <select
-                    className="w-full rounded-lg border border-gray-300 p-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-lg border border-gray-300 p-2 sm:p-3 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                     value={style}
                     onChange={(e) => setStyle(e.target.value)}
                   >
@@ -296,12 +296,12 @@ export default function AssessmentPage() {
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                   disabled={loading}
                 >
                   {loading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                       <span>Generating Assessment...</span>
                     </div>
                   ) : (

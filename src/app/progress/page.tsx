@@ -142,11 +142,6 @@ export default function ProgressPage() {
     return Math.round((progressData.weeklyProgress / progressData.weeklyGoal) * 100);
   };
 
-  const getMasteryColor = (level: number) => {
-    if (level <= 2) return 'text-yellow-600 bg-yellow-100';
-    if (level <= 4) return 'text-orange-600 bg-orange-100';
-    return 'text-red-600 bg-red-100';
-  };
 
   const getMasteryLabel = (level: number) => {
     if (level <= 2) return 'Beginner';
@@ -170,52 +165,52 @@ export default function ProgressPage() {
   if (!progressData) return null;
 
   return (
-    <div className="container mx-auto px-4 py-10 text-gray-900">
-      <div className="page-hero mb-8 p-6 md:p-10">
-        <div className="flex items-start justify-between mb-6">
+    <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-10 text-gray-900">
+      <div className="page-hero mb-6 sm:mb-8 p-4 sm:p-6 md:p-10">
+        <div className="flex items-start justify-between mb-4 sm:mb-6">
           <BackButton className="mt-1" />
         </div>
-        <span className="badge badge-success">Progress</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+        <span className="badge badge-success text-xs sm:text-sm">Progress</span>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
           Your Learning Journey
         </h1>
-        <p className="text-gray-700 mt-1 max-w-2xl">
+        <p className="text-sm sm:text-base text-gray-700 mt-1 max-w-2xl">
           Track your progress, celebrate achievements, and stay motivated on your learning path.
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
         {/* Progress Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Current Streak */}
-          <div className="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-2xl border border-orange-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">🔥</span>
+          <div className="bg-gradient-to-br from-orange-50 to-red-50 p-4 sm:p-6 rounded-2xl border border-orange-200">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                <span className="text-xl sm:text-2xl">🔥</span>
               </div>
-              <span className="text-sm text-orange-600 font-medium">Current</span>
+              <span className="text-xs sm:text-sm text-orange-600 font-medium">Current</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
               {progressData.currentStreak}
             </div>
-            <div className="text-sm text-gray-600">Day Streak</div>
+            <div className="text-xs sm:text-sm text-gray-600">Day Streak</div>
             <div className="text-xs text-orange-600 mt-2">
               Best: {progressData.longestStreak} days
             </div>
           </div>
 
           {/* Modules Completed */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">📚</span>
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-2xl border border-blue-200">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-xl sm:text-2xl">📚</span>
               </div>
-              <span className="text-sm text-blue-600 font-medium">Progress</span>
+              <span className="text-xs sm:text-sm text-blue-600 font-medium">Progress</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
               {progressData.modulesCompleted}/{progressData.totalModules}
             </div>
-            <div className="text-sm text-gray-600">Modules</div>
+            <div className="text-xs sm:text-sm text-gray-600">Modules</div>
             <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
               <div 
                 className="bg-blue-600 h-2 rounded-full transition-all duration-500"
@@ -228,17 +223,17 @@ export default function ProgressPage() {
           </div>
 
           {/* Mastery Level */}
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">⭐</span>
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 sm:p-6 rounded-2xl border border-purple-200">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                <span className="text-xl sm:text-2xl">⭐</span>
               </div>
-              <span className="text-sm text-purple-600 font-medium">Mastery</span>
+              <span className="text-xs sm:text-sm text-purple-600 font-medium">Mastery</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
               Level {progressData.masteryLevel}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-xs sm:text-sm text-gray-600">
               {getMasteryLabel(progressData.masteryLevel)}
             </div>
             <div className="flex space-x-1 mt-2">
@@ -254,17 +249,17 @@ export default function ProgressPage() {
           </div>
 
           {/* Study Time */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl">⏱️</span>
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 sm:p-6 rounded-2xl border border-green-200">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <span className="text-xl sm:text-2xl">⏱️</span>
               </div>
-              <span className="text-sm text-green-600 font-medium">Total</span>
+              <span className="text-xs sm:text-sm text-green-600 font-medium">Total</span>
             </div>
-            <div className="text-3xl font-bold text-gray-900 mb-1">
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
               {progressData.totalStudyTime}h
             </div>
-            <div className="text-sm text-gray-600">Study Time</div>
+            <div className="text-xs sm:text-sm text-gray-600">Study Time</div>
             <div className="text-xs text-green-600 mt-2">
               This week: {progressData.weeklyProgress}h
             </div>

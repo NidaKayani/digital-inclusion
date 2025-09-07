@@ -167,16 +167,16 @@ export default function InspirationPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-10 text-gray-900">
-      <div className="page-hero mb-8 p-6 md:p-10">
-        <div className="flex items-start justify-between mb-6">
+    <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-10 text-gray-900">
+      <div className="page-hero mb-6 sm:mb-8 p-4 sm:p-6 md:p-10">
+        <div className="flex items-start justify-between mb-4 sm:mb-6">
           <BackButton className="mt-1" />
         </div>
-        <span className="badge badge-success">Inspiration</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+        <span className="badge badge-success text-xs sm:text-sm">Inspiration</span>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
           Stories & Ideas
         </h1>
-        <p className="text-gray-700 mt-1 max-w-2xl">
+        <p className="text-sm sm:text-base text-gray-700 mt-1 max-w-2xl">
           Discover success stories, innovative approaches, and creative ideas from the global digital inclusion community.
         </p>
       </div>
@@ -195,7 +195,7 @@ export default function InspirationPage() {
             ].map((category) => (
               <button
                 key={category.key}
-                onClick={() => setSelectedCategory(category.key as any)}
+                onClick={() => setSelectedCategory(category.key as 'all' | 'success' | 'innovation' | 'community' | 'technology')}
                 className={`px-4 py-2 rounded-full border-2 transition-all duration-200 ${
                   selectedCategory === category.key
                     ? 'border-blue-500 bg-blue-50 text-blue-700'

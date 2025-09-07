@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import BackButton from "@/components/BackButton";
 
 interface OfflineMaterial {
@@ -19,6 +19,7 @@ export default function OfflinePage() {
   const [isSupported, setIsSupported] = useState(false);
   const [status, setStatus] = useState("Checking service worker...");
   const [cacheSize, setCacheSize] = useState(0);
+  const [isOnline, setIsOnline] = useState(true);
   const [materials, setMaterials] = useState<OfflineMaterial[]>([
     {
       id: '1',
@@ -62,30 +63,7 @@ export default function OfflinePage() {
     }
   ]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-      setIsSupported(true);
-      navigator.serviceWorker.getRegistration().then((reg) => {
-        if (reg) {
-          setStatus(`Service worker active (scope: ${reg.scope})`);
-          checkCacheStatus();
-        } else {
-          setStatus("Service worker not registered yet.");
-        }
-      });
-    } else {
-      setIsSupported(false);
-      setStatus("Service workers are not supported in this browser.");
-    }
-  }, [mounted]);
-
-  const checkCacheStatus = async () => {
+  const checkCacheStatus = useCallback(async () => {
     try {
       const cacheNames = await caches.keys();
       let totalSize = 0;
@@ -115,7 +93,45 @@ export default function OfflinePage() {
     } catch (error) {
       console.error('Error checking cache status:', error);
     }
-  };
+  }, [materials]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
+    // Set initial online status
+    setIsOnline(navigator.onLine);
+    
+    // Listen for online/offline events
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      setIsSupported(true);
+      navigator.serviceWorker.getRegistration().then((reg) => {
+        if (reg) {
+          setStatus(`Service worker active (scope: ${reg.scope})`);
+          checkCacheStatus();
+        } else {
+          setStatus("Service worker not registered yet.");
+        }
+      });
+    } else {
+      setIsSupported(false);
+      setStatus("Service workers are not supported in this browser.");
+    }
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [mounted, checkCacheStatus]);
 
   const cacheMaterial = async (material: OfflineMaterial) => {
     try {
@@ -172,25 +188,25 @@ export default function OfflinePage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-10 text-gray-900">
-      <div className="page-hero mb-8 p-6 md:p-10">
-        <div className="flex items-start justify-between mb-6">
+    <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-10 text-gray-900">
+      <div className="page-hero mb-6 sm:mb-8 p-4 sm:p-6 md:p-10">
+        <div className="flex items-start justify-between mb-4 sm:mb-6">
           <BackButton className="mt-1" />
         </div>
-        <span className="badge badge-warning">Offline</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
+        <span className="badge badge-warning text-xs sm:text-sm">Offline</span>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mt-2 text-gray-900">
           Offline Learning Hub
         </h1>
-        <p className="text-gray-700 mt-1 max-w-2xl">
+        <p className="text-sm sm:text-base text-gray-700 mt-1 max-w-2xl">
           Download and cache learning materials for offline access. Perfect for low-connectivity environments.
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
         {/* Service Worker Status */}
-        <div className="bg-white p-6 rounded-2xl shadow">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Offline Capabilities</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Offline Capabilities</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center p-4 bg-gray-50 rounded-xl">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-2xl">🔧</span>
@@ -319,16 +335,16 @@ export default function OfflinePage() {
               <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
                 <li>Open this page in your browser</li>
                 <li>Tap the share button</li>
-                <li>Select "Add to Home Screen"</li>
-                <li>Tap "Add" to install</li>
+                <li>Select &quot;Add to Home Screen&quot;</li>
+                <li>Tap &quot;Add&quot; to install</li>
               </ol>
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 mb-2">Desktop (Chrome/Edge)</h3>
               <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
                 <li>Click the install icon in address bar</li>
-                <li>Or go to menu → "Install app"</li>
-                <li>Click "Install" when prompted</li>
+                <li>Or go to menu → &quot;Install app&quot;</li>
+                <li>Click &quot;Install&quot; when prompted</li>
                 <li>Launch from your desktop</li>
               </ol>
             </div>
@@ -339,11 +355,11 @@ export default function OfflinePage() {
         <div className="bg-white p-6 rounded-2xl shadow">
           <h2 className="text-xl font-bold text-gray-900 mb-4">🌐 Network Status</h2>
           <div className="flex items-center space-x-4">
-            <div className={`w-4 h-4 rounded-full ${navigator.onLine ? 'bg-green-500' : 'bg-red-500'}`}></div>
+            <div className={`w-4 h-4 rounded-full ${isOnline ? 'bg-green-500' : 'bg-red-500'}`}></div>
             <span className="text-gray-700">
-              {navigator.onLine ? 'You are online' : 'You are offline'}
+              {isOnline ? 'You are online' : 'You are offline'}
             </span>
-            {!navigator.onLine && (
+            {!isOnline && (
               <span className="text-sm text-gray-500">
                 - Offline mode active, using cached content
               </span>
